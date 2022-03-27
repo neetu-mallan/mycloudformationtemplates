@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  DemoS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: neetuccp.tk
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        ErrorDocument: error.html
+        IndexDocument: index.html
+      LoggingConfiguration:
+        DestinationBucketName: !Ref DemoS3LoggingBucket
+        LogFilePrefix: logs
+      VersioningConfiguration:
+        Status: Enabled
+
+  DemoS3SubDomainBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: www.neetuccp.tk
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: neetuccp.tk
+          Protocol: http
+
+  DemoS3LoggingBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: logs.neetuccp.tk
+      AccessControl: LogDeliveryWrite
+          
+
+             
+
+
+
+
+
+
+
+
